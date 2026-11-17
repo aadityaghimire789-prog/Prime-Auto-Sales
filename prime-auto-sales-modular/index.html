@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prime Auto Sales | Dashboard</title><link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <section id="login-gate" class="login-gate">
+    <div class="login-card">
+      <div class="brand-mark login-mark">P</div><p class="eyebrow">PRIME AUTO SALES</p>
+      <div id="login-view">
+        <h1>Welcome back</h1><p class="muted">Sign in to access the dealership modules.</p>
+        <form id="login-form" class="auth-form">
+          <label for="login-user">Username</label><input id="login-user" autocomplete="username" required placeholder="Username">
+          <label for="login-password">Password</label><input id="login-password" type="password" autocomplete="current-password" required placeholder="Password">
+          <p id="login-error" class="login-error" aria-live="polite"></p><button class="btn login-submit" type="submit">Log in</button>
+        </form>
+        <p class="auth-switch">Don't have an account? <button type="button" class="text-button" id="show-signup">Sign up</button></p>
+        <p class="login-hint">Demo login: <b>admin</b> / <b>Prime123!</b></p>
+      </div>
+      <div id="signup-view" class="hidden">
+        <h1>Create account</h1><p class="muted">Register to use Prime Auto Sales.</p>
+        <form id="signup-form" class="auth-form">
+          <label for="signup-name">Full name</label><input id="signup-name" maxlength="100" autocomplete="name" required placeholder="Your full name">
+          <label for="signup-user">Username</label><input id="signup-user" minlength="3" maxlength="30" autocomplete="username" required placeholder="Choose a username">
+          <label for="signup-email">Email address</label><input id="signup-email" type="email" maxlength="150" autocomplete="email" required placeholder="name@example.com">
+          <label for="signup-password">Password</label><input id="signup-password" type="password" minlength="8" autocomplete="new-password" required placeholder="At least 8 characters">
+          <label for="signup-confirm">Confirm password</label><input id="signup-confirm" type="password" minlength="8" autocomplete="new-password" required placeholder="Enter password again">
+          <p id="signup-error" class="login-error" aria-live="polite"></p><button class="btn login-submit" type="submit">Create account</button>
+        </form>
+        <p class="auth-switch">Already have an account? <button type="button" class="text-button" id="show-login">Log in</button></p>
+      </div>
+    </div>
+  </section>
+  <header class="topbar"><a class="brand" href="index.html"><span class="brand-mark">P</span><span>PRIME <b>AUTO SALES</b></span></a><span class="top-note">Dealership Management System</span></header>
+  <div class="shell">
+    <aside class="sidebar"><div class="side-label">WORKSPACE</div><a class="nav-link active" href="index.html">▦ &nbsp; Dashboard</a><a class="nav-link" href="modules/customer-management/index.html">♙ &nbsp; Customer Management</a><a class="nav-link" href="modules/vehicle-management/index.html">▣ &nbsp; Vehicle Management</a><a class="nav-link" href="modules/sales/index.html">＄ &nbsp; Sales</a><a class="nav-link" href="modules/customer-service/index.html">☏ &nbsp; Customer Service</a><div class="sidebar-foot">Prime Auto Sales<br><small>Local demo application</small><button class="btn secondary logout-btn" id="logout">Log out</button></div></aside>
+    <main class="main-content"><div class="page-heading"><div><p class="eyebrow">OVERVIEW</p><h1>Dashboard</h1><p class="muted">Manage your dealership from one place.</p></div><span class="date-chip" id="today"></span></div>
+      <section class="stats-grid"><article class="stat-card"><span class="stat-icon blue">♙</span><div><p>Total customers</p><strong id="customer-count">0</strong></div></article><article class="stat-card"><span class="stat-icon purple">▣</span><div><p>Vehicles listed</p><strong id="vehicle-count">0</strong></div></article><article class="stat-card"><span class="stat-icon green">＄</span><div><p>Sales recorded</p><strong id="sales-count">0</strong></div></article><article class="stat-card"><span class="stat-icon orange">☏</span><div><p>Open enquiries</p><strong id="enquiry-count">0</strong></div></article></section>
+      <section class="panel"><div class="panel-head"><div><h2>Business modules</h2><p class="muted">Choose a module to get started.</p></div></div><div class="module-grid">
+        <a class="module-card" href="modules/customer-management/index.html"><span class="module-symbol blue">♙</span><h3>Customer Management</h3><p>Store and maintain customer names, phone numbers, email addresses and home addresses.</p><span class="module-action">Open module →</span></a>
+        <a class="module-card" href="modules/vehicle-management/index.html"><span class="module-symbol purple">▣</span><h3>Vehicle Management</h3><p>Add, update, find and manage vehicles, including price, mileage and availability.</p><span class="module-action">Open module →</span></a>
+        <a class="module-card" href="modules/sales/index.html"><span class="module-symbol green">＄</span><h3>Sales</h3><p>Record vehicle sales, connect customers and vehicles, and track payment status.</p><span class="module-action">Open module →</span></a>
+        <a class="module-card" href="modules/customer-service/index.html"><span class="module-symbol orange">☏</span><h3>Customer Service</h3><p>Manage customer enquiries and test-drive bookings, and follow their progress.</p><span class="module-action">Open module →</span></a>
+      </div></section>
+      <p class="footnote">This demo stores data in this browser using localStorage. It does not use a shared online database.</p>
+    </main>
+  </div><script src="js/common.js"></script><script>
+document.getElementById('today').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+document.getElementById('customer-count').textContent=Store.all('customers').length;
+document.getElementById('vehicle-count').textContent=Store.all('vehicles').length;
+document.getElementById('sales-count').textContent=Store.all('sales').length;
+document.getElementById('enquiry-count').textContent=Store.all('enquiries').filter(x=>x.status!=='Closed').length;
+const loginView=document.getElementById('login-view'), signupView=document.getElementById('signup-view');
+document.getElementById('show-signup').addEventListener('click',()=>{loginView.classList.add('hidden');signupView.classList.remove('hidden');});
+document.getElementById('show-login').addEventListener('click',()=>{signupView.classList.add('hidden');loginView.classList.remove('hidden');});
+document.getElementById('login-form').addEventListener('submit',e=>{e.preventDefault();const ok=Auth.login(document.getElementById('login-user').value.trim(),document.getElementById('login-password').value);if(ok){document.getElementById('login-gate').classList.add('hidden');document.querySelector('.shell').classList.remove('app-locked');}else{document.getElementById('login-error').textContent='Incorrect username or password.';}});
+document.getElementById('signup-form').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('signup-name').value.trim(),username=document.getElementById('signup-user').value.trim(),email=document.getElementById('signup-email').value.trim(),password=document.getElementById('signup-password').value,confirmPassword=document.getElementById('signup-confirm').value,error=document.getElementById('signup-error');error.textContent='';if(name.length<2){error.textContent='Please enter your full name.';return;}if(!/^[A-Za-z0-9_.-]{3,30}$/.test(username)){error.textContent='Username must be 3–30 characters (letters, numbers, dot, underscore or hyphen).';return;}if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){error.textContent='Please enter a valid email address.';return;}if(password.length<8){error.textContent='Password must contain at least 8 characters.';return;}if(password!==confirmPassword){error.textContent='Passwords do not match.';return;}const result=Auth.register({name,username,email,password});if(!result.ok){error.textContent=result.message;return;}document.getElementById('login-user').value=username;document.getElementById('login-password').value='';document.getElementById('signup-form').reset();signupView.classList.add('hidden');loginView.classList.remove('hidden');document.getElementById('login-error').textContent='Account created. Please log in.';});
+document.getElementById('logout').addEventListener('click',()=>Auth.logout());if(Auth.loggedIn()){document.getElementById('login-gate').classList.add('hidden');}else{document.querySelector('.shell').classList.add('app-locked');}
+</script>
+</body></html>

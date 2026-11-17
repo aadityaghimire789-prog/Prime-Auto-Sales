@@ -1,0 +1,26 @@
+
+# Dependencies
+node_modules/
+
+# Database files
+database/*.db
+database/*.db-shm
+database/*.db-wal
+*.sqlite
+*.sqlite3
+*.db
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Keep example environment file
+!.env.example
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+tmp/
